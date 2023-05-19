@@ -1,17 +1,20 @@
 import { TaskTypes } from "@/contexts/Tasks";
-import { v4 as uuid } from "uuid";
+import Link from "next/link";
 
-export function Task({ name, tasksNames }: TaskTypes) {
+export function Task({ name, tasksNames, color }: TaskTypes) {
   return (
-    <li className="flex flex-col gap-2">
-      <div className="flex h-[15rem] w-[15rem] flex-col items-center justify-center gap-2 rounded-sm bg-gray-500 text-xs">
-        {tasksNames?.map((taskName) => (
-          <span key={uuid()} className="text-gray-600">
-            {taskName}
+    <li className="flex flex-col gap-2 select-none group">
+      <Link href={`./todolist/${name}`}>
+        <div
+          style={{ background: color }}
+          className="flex h-[15rem] w-[15rem] cursor-pointer flex-col items-center justify-center gap-2 rounded-sm border border-black text-xs group-hover:border group-hover:border-purple-700 group-hover:shadow-xl group-hover:shadow-purple-500"
+        >
+          <span>
+            {tasksNames?.map(({ name }) => <>{name}</>) || "Not found"}
           </span>
-        )) || "Not found"}
-      </div>
-      <p>{name}</p>
+        </div>
+        <p>{name}</p>
+      </Link>
     </li>
   );
 }

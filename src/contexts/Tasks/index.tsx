@@ -2,10 +2,17 @@
 
 import { create } from "zustand";
 
+export interface DetalhedTask {
+  name: string;
+  date: string;
+  message: string;
+}
+
 export interface TaskTypes {
   id: string;
   name: string;
-  tasksNames?: string[];
+  detalhedTasks?: DetalhedTask[];
+  color?: string;
 }
 
 interface Props {
@@ -21,10 +28,10 @@ export const useTasks = create<Props>((set) => ({
   addNewTask: (task: TaskTypes) =>
     set(({ tasks }) => ({ tasks: [...tasks, task] })),
 
-  updateSomeTask: ({ id, name, tasksNames }: TaskTypes) =>
+  updateSomeTask: ({ id, name, detalhedTasks, color }: TaskTypes) =>
     set(({ tasks }) => ({
       tasks: tasks.map((task) =>
-        task.id === id ? { ...task, name, tasksNames } : task
+        task.id === id ? { ...task, name, detalhedTasks, color } : task
       ),
     })),
 

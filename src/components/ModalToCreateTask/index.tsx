@@ -2,7 +2,7 @@ import { Dispatch, FormEvent, SetStateAction, useState, useRef } from "react";
 import { v4 as uuid } from "uuid";
 import { Button } from "@/components/Button";
 import { useTasks } from "@/contexts/Tasks";
-
+import { noSpecialChars } from "@/functions/noSpecialChars";
 interface Props {
   stateModal: [boolean, Dispatch<SetStateAction<boolean>>];
 }
@@ -16,8 +16,15 @@ export function ModalToCreateTask({ stateModal }: Props) {
   const cancelTask = () => setIsModalVisible(false);
   const addTask = () => {
     const inputValue = inputRef.current?.value ?? "newTask";
+    const formatedValue = noSpecialChars(inputValue);
 
-    addNewTask({ name: inputValue, id: uuid() });
+    addNewTask({
+      name: formatedValue,
+      id: uuid(),
+      tasksNames: [],
+      color: "#b7b7b7",
+    });
+
     setIsModalVisible(false);
   };
 
