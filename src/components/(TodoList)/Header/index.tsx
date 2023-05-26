@@ -10,7 +10,7 @@ import { ModalToCreateTask } from "@/components/ModalToCreateTask";
 interface Props {
   typeHeader: "index" | "task";
   taskObject?: TaskTypes;
-  handleChangeTodolistColor: (evt: FormEvent<HTMLInputElement>) => void;
+  handleChangeTodolistColor?: (evt: FormEvent<HTMLInputElement>) => void;
 }
 
 export function Header({
